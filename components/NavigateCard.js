@@ -9,7 +9,7 @@ export class NavigateCard extends Component {
             <SafeAreaView
                 style={tw`bg-white flex-1`}
             >
-                <Text>Good Morning, Shane</Text>
+                <Text style={tw`text-center py-5 text-xl`}>Good Morning, Shane</Text>
             </SafeAreaView>
         )
     }
