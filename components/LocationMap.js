@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import { selectOrigin } from '../features/navSlice/navSlice';
 
-const Mapper = () => {
+const LocationMap = () => {
     const origin = useSelector(selectOrigin);
 
     return (
@@ -33,4 +33,4 @@ const Mapper = () => {
     )
 }
 
-export default Mapper
+export default LocationMap
