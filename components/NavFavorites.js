@@ -14,7 +14,7 @@ const data = [
         id: "456",
         icon: "briefcase",
         location: "Work",
-        screen: "Dublin, Airport"
+        destination: "Dublin, Airport"
     }
 ];
 
@@ -23,16 +23,25 @@ const NavFavorites = () => {
         <FlatList
             data={data}
             keyExtractor={({ id }) => id}
-            renderItem={({ item: { icon } }) => (
-                <TouchableOpacity>
+            ItemSeparatorComponent={() => (
+                <View
+                    style={[tw`bg-gray-200 h-1`, { height: 0.5 }]}
+                />
+            )}
+            renderItem={({ item: { icon, location, destination } }) => (
+                <TouchableOpacity
+                    style={tw`flex-row items-center p-5`}
+                >
+                    <Icon
+                        style={tw`mr-4 rounded-full bg-gray-300 p-3`}
+                        name={icon}
+                        type='ionicon'
+                        color='white'
+                        size={18}
+                    />
                     <View>
-                        <Icon
-                            style={tw`mr-4 rounded-full bg-gray-300 p-3`}
-                            name={icon}
-                            type='ionicon'
-                            color='white'
-                            size={18}
-                        />
+                        <Text style={tw`font-semibold text-lg`}>{location}</Text>
+                        <Text style={tw`text-gray-500`}>{destination}</Text>
                     </View>
                 </TouchableOpacity>
             )}
