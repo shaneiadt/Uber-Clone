@@ -2,6 +2,8 @@ import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import tw from 'tailwind-react-native-classnames';
 
 import { store } from './features/store';
 import HomeScreen from './screens/HomeScreen';
@@ -14,22 +16,27 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <SafeAreaProvider>
-          <Stack.Navigator>
-            <Stack.Screen
-              name='HomeScreen'
-              component={HomeScreen}
-              options={{
-                headerShown: false
-              }}
-            />
-            <Stack.Screen
-              name='MapScreen'
-              component={MapScreen}
-              options={{
-                headerShown: false
-              }}
-            />
-          </Stack.Navigator>
+          <KeyboardAvoidingView
+            style={tw`flex-1`}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          >
+            <Stack.Navigator>
+              <Stack.Screen
+                name='HomeScreen'
+                component={HomeScreen}
+                options={{
+                  headerShown: false
+                }}
+              />
+              <Stack.Screen
+                name='MapScreen'
+                component={MapScreen}
+                options={{
+                  headerShown: false
+                }}
+              />
+            </Stack.Navigator>
+          </KeyboardAvoidingView>
         </SafeAreaProvider>
       </NavigationContainer>
     </Provider>
