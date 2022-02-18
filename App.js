@@ -19,6 +19,7 @@ export default function App() {
           <KeyboardAvoidingView
             style={tw`flex-1`}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={-60}
           >
             <Stack.Navigator>
               <Stack.Screen
