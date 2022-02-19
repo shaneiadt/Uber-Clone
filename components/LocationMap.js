@@ -1,16 +1,17 @@
 import React, { useRef, useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import MapViewDirections from 'react-native-maps-directions';
 
-import { selectDestination, selectOrigin } from '../features/navSlice/navSlice';
+import { selectDestination, selectOrigin, setTravelTimeInfo } from '../features/navSlice/navSlice';
 import { GOOGLE_MAPS_APIKEY } from '@env';
 
 const LocationMap = () => {
     const origin = useSelector(selectOrigin);
     const destination = useSelector(selectDestination);
     const mapRef = useRef(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (!origin || !destination) return;
@@ -20,6 +21,31 @@ const LocationMap = () => {
             edgePadding: { top: 50, right: 50, bottom: 50, left: 50 }
         });
     }, [origin, destination]);
+
+    useEffect(() => {
+        if (!origin || !destination) return;
+
+        const getTravelTime = async () => {
+            // Mock network request
+            setTimeout(() => {
+                const data = {
+                    distance: {
+                        text: '50 mi',
+                        value: 647
+                    },
+                    duration: {
+                        text: '27 minutes',
+                        value: 249
+                    },
+                    status: 'OK'
+                };
+
+                dispatch(setTravelTimeInfo(data));
+            }, 2000);
+        };
+
+        getTravelTime();
+    }, [origin, destination, GOOGLE_MAPS_APIKEY]);
 
     return (
         <MapView
