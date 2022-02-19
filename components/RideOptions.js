@@ -46,7 +46,7 @@ const RideOptions = () => {
         keyExtractor={({ id }) => id}
         renderItem={({ item: { id, title, multiplier, image }, item }) => (
           <TouchableOpacity
-            onPress={() => setSelected(item)}
+            onPress={() => setSelected(selected?.id === item.id ? null : item)}
             style={tw`flex-row items-center justify-between px-10 max-h-20 ${id === selected?.id && 'bg-gray-200'}`}>
             <Image
               style={{
@@ -64,6 +64,13 @@ const RideOptions = () => {
           </TouchableOpacity>
         )}
       />
+      {selected && (
+        <View style={tw`absolute bottom-0 w-full bg-white border-t-2 border-gray-300`}>
+          <TouchableOpacity style={tw`bg-black py-3 px-16 m-3`}>
+            <Text style={tw`text-center text-white text-xl`}>Choose an {selected?.title}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </SafeAreaView>
   )
 }
