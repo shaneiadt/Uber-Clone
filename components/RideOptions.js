@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import tw from 'tailwind-react-native-classnames'
 import { Icon } from 'react-native-elements/dist/icons/Icon'
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
+import { selectTravelTimeInfo } from '../features/navSlice/navSlice'
 
 const data = [
   {
@@ -26,9 +28,12 @@ const data = [
   },
 ];
 
+const SURCHARGE_RATE = 1.5;
+
 const RideOptions = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
+  const travelTimeInfo = useSelector(selectTravelTimeInfo);
 
   return (
     <SafeAreaView style={tw`bg-white flex-grow`}>
@@ -39,7 +44,7 @@ const RideOptions = () => {
         >
           <Icon name='chevron-left' type='fontawesome' />
         </TouchableOpacity>
-        <Text style={tw`text-center py-3`}>Select a Ride</Text>
+        <Text style={tw`text-center py-3`}>Select a Ride - {travelTimeInfo?.distance.text}</Text>
       </View>
       <FlatList
         data={data}
@@ -58,9 +63,12 @@ const RideOptions = () => {
             />
             <View style={tw`-ml-6`}>
               <Text style={tw`text-xl font-semibold`}>{title}</Text>
-              <Text>Travel time...</Text>
+              <Text>{travelTimeInfo?.duration.text} Travel Time</Text>
             </View>
-            <Text style={tw`text-xl`}>£99</Text>
+            <Text style={tw`text-xl`}>{new Intl.NumberFormat('en-gb', {
+              style: 'currency',
+              currency: 'GBP'
+            }).format((travelTimeInfo?.duration.value * SURCHARGE_RATE * multiplier) / 15)}</Text>
           </TouchableOpacity>
         )}
       />
