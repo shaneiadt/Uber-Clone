@@ -6,4 +6,4 @@ Node 16.13.2
 - Redux Toolkit
 - Tailwinds
 - Google Places API
-- Google Distance API
+- Google Directions API
